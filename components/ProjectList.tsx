@@ -1,35 +1,22 @@
-import ProjectCard, { type Project } from "@/components/ProjectCard";
+import ProjectCard from "./ProjectCard";
 
-const projects: Project[] = [
-  {
-    id: "portfolio",
-    title: "Portfolio site",
-    description:
-      "A Next.js portfolio with a home page, an about page, and a small API route.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-  },
-  {
-    id: "components",
-    title: "Reusable project cards",
-    description:
-      "Project data is rendered through a shared card so each project uses the same layout.",
-    tags: ["React", "Components"],
-  },
-];
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  link?: string;
+}
 
-export default function ProjectList() {
+interface ProjectListProps {
+  projects: Project[];
+}
+
+export default function ProjectList({ projects }: ProjectListProps) {
   return (
-    <section aria-labelledby="projects-heading">
-      <h2 id="projects-heading" className="text-2xl font-semibold tracking-tight">
-        Projects
-      </h2>
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-        {projects.map((project) => (
-          <li key={project.id}>
-            <ProjectCard project={project} />
-          </li>
-        ))}
-      </ul>
+    <section className="grid gap-6 md:grid-cols-2">
+      {projects.map((project) => (
+        <ProjectCard key={project.title} {...project} />
+      ))}
     </section>
   );
 }

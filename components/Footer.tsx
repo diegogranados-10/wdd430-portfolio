@@ -1,9 +1,14 @@
-export default function Footer() {
+import { connection } from "next/server";
+
+export default async function Footer() {
+  await connection();
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-black/10 dark:border-white/15">
-      <div className="mx-auto w-full max-w-5xl px-6 py-6">
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          Portfolio built with Next.js.
+    <footer className="border-t border-stone-200 bg-stone-50 py-8">
+      <div className="mx-auto max-w-5xl px-6 text-center">
+        <p className="text-sm text-stone-500">
+          Copyright &copy; {year} | Diego Granados | All rights reserved
         </p>
       </div>
     </footer>

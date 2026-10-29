@@ -1,29 +1,50 @@
-export type Project = {
-  id: string;
+interface ProjectCardProps {
   title: string;
   description: string;
-  tags: string[];
-};
+  technologies: string[];
+  link?: string;
+}
 
-type ProjectCardProps = {
-  project: Project;
-};
-
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({
+  title,
+  description,
+  technologies,
+  link,
+}: ProjectCardProps) {
   return (
-    <article className="flex h-full flex-col gap-4 rounded-2xl border border-black/10 bg-white p-6 dark:border-white/15 dark:bg-zinc-950">
-      <h2 className="text-xl font-semibold tracking-tight">{project.title}</h2>
-      <p className="text-zinc-600 dark:text-zinc-400">{project.description}</p>
-      <ul className="mt-auto flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <li
-            key={tag}
-            className="rounded-full bg-zinc-100 px-3 py-1 text-sm text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
+    <article className="group relative flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-stone-400 hover:shadow-lg">
+      <h3 className="text-xl font-semibold tracking-tight text-stone-950">
+        {link ? (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-stone-900"
           >
-            {tag}
+            {title}
+          </a>
+        ) : (
+          title
+        )}
+      </h3>
+      <p className="mt-3 flex-1 leading-relaxed text-stone-600">{description}</p>
+      <ul className="mt-5 flex flex-wrap gap-2">
+        {technologies.map((technology) => (
+          <li
+            key={technology}
+            className="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium text-stone-600"
+          >
+            {technology}
           </li>
         ))}
       </ul>
+      {link && (
+        <p className="mt-6 text-sm font-medium text-stone-950">
+          <span className="border-b border-stone-300 pb-0.5 transition group-hover:border-stone-950">
+            View project
+          </span>
+        </p>
+      )}
     </article>
   );
 }
